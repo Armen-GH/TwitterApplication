@@ -1,5 +1,5 @@
 import { pgPool, mongo } from './index.js';
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 async function test() {
     try {
