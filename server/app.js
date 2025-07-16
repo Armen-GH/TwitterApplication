@@ -4,8 +4,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var dotenv = require('dotenv');
+const { Pool } = require('pg');
 
 dotenv.config();
+
+const pgPool = new Pool({
+  connectionString: process.env.POSTGRES_URL,
+});
 
 var users = require('./routes/users');
 
@@ -18,6 +23,10 @@ mongoose.connect(process.env.MONGODB_URI, {
 })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
+
+pgPool.connect()
+    .then(() => console.log('PostgreSQL connected'))
+    .catch((err) => console.error('PostgreSQL connection error:', err));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
