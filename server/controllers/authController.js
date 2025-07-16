@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { pgPool } from '../db/index.js';
 
-const JWT_SECRET = process.env.JWT_SECRET_KEY || 'default_fallback_secret';
+const JWT_SECRET = process.env.JWT_SECRET || 'default_fallback_secret';
 
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
