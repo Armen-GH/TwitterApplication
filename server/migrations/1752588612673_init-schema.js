@@ -55,4 +55,3 @@ exports.down = (pgm) => {
     pgm.dropTable('followers');
     pgm.dropTable('users');
 };
-// hey
