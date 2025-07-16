@@ -6,8 +6,13 @@ exports.up = (pgm) => {
         username: { type: 'varchar(30)', notNull: true, unique: true },
         email: { type: 'varchar(255)', notNull: true, unique: true },
         password_hash: { type: 'varchar(255)', notNull: true },
+        name: { type: 'varchar(100)' },            // new
+        bio: { type: 'text' },                      // new
+        profile_picture_url: { type: 'text' },     // new
+        preferences: { type: 'jsonb' },             // new
         created_at: { type: 'timestamptz', default: pgm.func('now()') }
     });
+
 
     pgm.createTable('followers', {
         follower_id: {
@@ -55,4 +60,3 @@ exports.down = (pgm) => {
     pgm.dropTable('followers');
     pgm.dropTable('users');
 };
-// hey
