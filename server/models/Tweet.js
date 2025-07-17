@@ -1,7 +1,8 @@
 import { Schema, model } from 'mongoose';
 
 const TweetSchema = new Schema({
-    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    //author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    author: { type: Number, required: true }, // Postgres user ID
     text: { type: String, maxlength: 280 },
     media: [
         {

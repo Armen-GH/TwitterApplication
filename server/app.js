@@ -8,6 +8,10 @@ import { Pool } from 'pg';
 
 import auth from './routes/auth.js';
 import protectedRoutes from './routes/protectedRoutes.js'; 
+import tweetRoutes from './routes/tweetRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import socialRoutes from './routes/socialRoutes.js';
+import feedRoutes from './routes/feedRoutes.js';
 
 dotenv.config();
 
@@ -33,6 +37,10 @@ app.use(cookieParser());
 
 app.use('/api/v1/auth', auth);
 app.use('/api/v1', protectedRoutes); 
+app.use('/api', tweetRoutes);
+app.use('/api', userRoutes);
+app.use('/api', socialRoutes);
+app.use('/api', feedRoutes);
 
 app.get('/', (req, res) => {
   res.send('🚀 API is running!');
