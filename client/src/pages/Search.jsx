@@ -132,7 +132,7 @@ const Search = () => {
           </div>
 
           {/* Explore More */}
-          <div className="p-4 border-b border-gray-800">
+          {/* <div className="p-4 border-b border-gray-800">
             <h2 className="text-xl font-bold mb-4">What's happening</h2>
             
             <div className="space-y-4">
@@ -181,7 +181,7 @@ const Search = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </div>

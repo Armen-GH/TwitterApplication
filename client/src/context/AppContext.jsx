@@ -99,19 +99,28 @@ export const AppProvider = ({ children }) => {
     ));
   };
 
-  const postTweet = (content, image = null) => {
+  const postTweet = (tweetData) => {
+    const isVideo = tweetData.media?.type?.startsWith('video');
+
     const newTweet = {
-      id: tweets.length + 1,
-      userId: user.id,
-      content,
+      id: Date.now(),
+      userId: user.id || 'me',
+      content: tweetData.content,
+      image: !isVideo ? tweetData.mediaPreview : null,
+      video: isVideo ? tweetData.mediaPreview : null,
+      location: tweetData.location || '',
+      scheduleTime: tweetData.scheduleTime || '',
       timestamp: new Date().toISOString(),
-      likes: 0,
-      retweets: 0,
       replies: 0,
-      ...(image && { image })
+      retweets: 0,
+      likes: 0,
+      comments: [],
     };
-    setTweets(prev => [newTweet, ...prev]);
+
+    setTweets((prevTweets) => [newTweet, ...prevTweets]);
   };
+
+
 
   const value = {
     user,

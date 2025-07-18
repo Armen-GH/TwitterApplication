@@ -38,7 +38,7 @@ const Layout = ({ children }) => {
         <div className="w-64 fixed h-full border-r border-gray-800 p-4">
           {/* Logo */}
           <div className="mb-8">
-            <Link to="/" className="text-2xl font-bold text-blue-400">
+            <Link to="/" className="text-3xl font-bold text-blue-400 font-serif">
               Twitter
             </Link>
           </div>
@@ -98,7 +98,7 @@ const Layout = ({ children }) => {
             </div>
 
             {/* Right Sidebar */}
-            <div className="w-80 p-4">
+            {/* <div className="w-80 p-4">
               <div className="bg-gray-900 rounded-2xl p-4 mb-4">
                 <h3 className="text-xl font-bold mb-3">What's happening</h3>
                 <div className="space-y-3">
@@ -157,7 +157,7 @@ const Layout = ({ children }) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
