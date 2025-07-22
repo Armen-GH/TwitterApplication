@@ -5,6 +5,8 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
+import cors from 'cors';
+
 
 import auth from './routes/auth.js';
 import protectedRoutes from './routes/protectedRoutes.js'; 
@@ -30,6 +32,12 @@ const pgPool = new Pool({
 pgPool.connect()
     .then(() => console.log('PostgreSQL connected'))
     .catch(err => console.error('PostgreSQL connection error:', err));
+
+// Enable CORS
+app.use(cors({
+  origin: 'http://localhost:5173', // allow your frontend origin
+  credentials: true                // allow cookies if needed
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

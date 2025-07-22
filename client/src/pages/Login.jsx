@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Twitter } from "lucide-react"; // or use any Twitter icon SVG
-import { signupUser } from '../services/api';
+import { signupUser, loginUser } from '../services/api';
 
 
 const Login = () => {
@@ -19,8 +19,12 @@ const Login = () => {
 
     try {
       if (isLogin) {
-        // TODO: Implement login later
-        console.log("Login not implemented yet");
+        const data = await loginUser({ email, password });
+        setStatus("✅ Login successful!");
+        console.log("Token:", data.token);
+        // Optionally store token in localStorage:
+        localStorage.setItem('token', data.token);
+        // Redirect or load app data
       } else {
         const data = await signupUser({ username, email, password });
         setStatus("✅ Account created!");
