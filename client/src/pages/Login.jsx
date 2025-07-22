@@ -1,9 +1,39 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Twitter } from "lucide-react"; // or use any Twitter icon SVG
+import { signupUser } from '../services/api';
+
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setStatus(null);
+
+    try {
+      if (isLogin) {
+        // TODO: Implement login later
+        console.log("Login not implemented yet");
+      } else {
+        const data = await signupUser({ username, email, password });
+        setStatus("✅ Account created!");
+        console.log("Signed up:", data);
+        // Optional: switch to login
+        // setIsLogin(true);
+      }
+    } catch (err) {
+      console.error("Signup error:", err);
+      setError("Failed to sign up");
+    }
+  };
+  
 
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
@@ -31,25 +61,30 @@ const Login = () => {
           >
             Sign Up
           </button>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {status && <p className="text-green-500 text-sm">{status}</p>}
         </div>
 
         {/* Form */}
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           {!isLogin && (
             <input
               type="text"
               placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           )}
           <input
             type="email"
             placeholder="Email"
+             onChange={(e) => setEmail(e.target.value)}
             className="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             type="password"
             placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
