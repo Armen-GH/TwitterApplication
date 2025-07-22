@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import Layout from './components/Layout';
@@ -11,16 +11,31 @@ import Settings from './pages/Settings';
 import FollowList from './pages/FollowList';
 import NotFound from './pages/NotFound';
 
-function App() {
+import { requestNotificationPermission, subscribeUserToPush } from './utils/pushUtils';
+
+const App = () => {
+  useEffect(() => {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then(async (registration) => {
+          console.log('Service Worker registered:', registration);
+          await requestNotificationPermission();
+          await subscribeUserToPush(registration);
+        })
+        .catch((err) => {
+          console.error('Service Worker registration failed:', err);
+        });
+    }
+  }, []);
+
   return (
     <AppProvider>
       <Router>
         <Routes>
-          {/* No layout for Login */}
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
 
-          {/* Layout wrapped routes */}
           <Route path="/" element={<Layout><Home /></Layout>} />
           <Route path="/search" element={<Layout><Search /></Layout>} />
           <Route path="/profile/:username" element={<Layout><Profile /></Layout>} />
@@ -76,6 +91,6 @@ function App() {
       </Router>
     </AppProvider>
   );
-}
+};
 
 export default App;
