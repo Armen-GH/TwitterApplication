@@ -108,7 +108,7 @@ const TweetComposer = () => {
               </div>
             )}
 
-            {/* Media Preview */}
+            {/* media Preview */}
             {mediaPreview && (
               <div className="mt-2">
                 {media?.type?.startsWith('image') ? (
@@ -140,7 +140,7 @@ const TweetComposer = () => {
                   />
                 </label>
 
-                {/* Emoji Picker */}
+                {/* emoji Picker */}
                 <div className="relative">
                   <button
                     type="button"

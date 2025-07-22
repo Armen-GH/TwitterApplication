@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Search as SearchIcon, ArrowLeft } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Search as SearchIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { searchUsers } from '../data/mockData';
@@ -130,58 +130,6 @@ const Search = () => {
               </div>
             ))}
           </div>
-
-          {/* Explore More */}
-          {/* <div className="p-4 border-b border-gray-800">
-            <h2 className="text-xl font-bold mb-4">What's happening</h2>
-            
-            <div className="space-y-4">
-              <div className="hover:bg-gray-950 p-3 rounded cursor-pointer transition-colors">
-                <div className="flex items-center space-x-3">
-                  <img
-                    src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=60&h=60&fit=crop"
-                    alt="News"
-                    className="w-12 h-12 rounded object-cover"
-                  />
-                  <div className="flex-1">
-                    <p className="text-gray-500 text-sm">Technology · Trending</p>
-                    <p className="font-bold">React 19 Released</p>
-                    <p className="text-gray-500 text-sm">New features and improvements</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="hover:bg-gray-950 p-3 rounded cursor-pointer transition-colors">
-                <div className="flex items-center space-x-3">
-                  <img
-                    src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=60&h=60&fit=crop"
-                    alt="News"
-                    className="w-12 h-12 rounded object-cover"
-                  />
-                  <div className="flex-1">
-                    <p className="text-gray-500 text-sm">Programming · Trending</p>
-                    <p className="font-bold">TypeScript 5.5</p>
-                    <p className="text-gray-500 text-sm">Latest updates and features</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="hover:bg-gray-950 p-3 rounded cursor-pointer transition-colors">
-                <div className="flex items-center space-x-3">
-                  <img
-                    src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=60&h=60&fit=crop"
-                    alt="News"
-                    className="w-12 h-12 rounded object-cover"
-                  />
-                  <div className="flex-1">
-                    <p className="text-gray-500 text-sm">AI · Trending</p>
-                    <p className="font-bold">ChatGPT Updates</p>
-                    <p className="text-gray-500 text-sm">New capabilities announced</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
       )}
     </div>

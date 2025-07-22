@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
   ArrowLeft, 
@@ -9,7 +9,6 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import Tweet from '../components/Tweet';
-import { getTweetsByUserId } from '../data/mockData';
 
 const Profile = () => {
   const { username } = useParams();
@@ -69,47 +68,6 @@ const Profile = () => {
     { id: 'likes', name: 'Likes', count: 0 },
   ];
 
-  const renderFollowingList = () => (
-    <div className="divide-y divide-gray-800">
-      {followingList.map((followedUser) => (
-        <div key={followedUser.id} className="p-4 hover:bg-gray-950 transition-colors">
-          <div className="flex items-center justify-between">
-            <Link to={`/profile/${followedUser.username}`} className="flex items-center space-x-3 flex-1">
-              <img
-                src={followedUser.avatar}
-                alt={followedUser.displayName}
-                className="w-12 h-12 rounded-full"
-              />
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center space-x-1">
-                  <h3 className="font-bold hover:underline">{followedUser.displayName}</h3>
-                  {followedUser.verified && (
-                    <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs">✓</span>
-                    </div>
-                  )}
-                </div>
-                <p className="text-gray-500">@{followedUser.username}</p>
-                <p className="text-sm text-gray-300 mt-1 line-clamp-2">{followedUser.bio}</p>
-              </div>
-            </Link>
-            {!isOwnProfile && followedUser.id !== currentUser.id && (
-              <button
-                onClick={() => isUserFollowing(followedUser.id) ? unfollowUser(followedUser.id) : followUser(followedUser.id)}
-                className={`px-4 py-1 rounded-full font-bold text-sm transition-colors ${
-                  isUserFollowing(followedUser.id)
-                    ? 'border border-gray-600 text-white hover:border-red-500 hover:text-red-500'
-                    : 'bg-white text-black hover:bg-gray-200'
-                }`}
-              >
-                {isUserFollowing(followedUser.id) ? 'Following' : 'Follow'}
-              </button>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
 
   return (
     <div className="min-h-screen">

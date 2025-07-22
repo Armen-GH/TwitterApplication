@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Twitter } from "lucide-react"; // or use any Twitter icon SVG
+
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { getFollowing, getFollowers } from '../data/mockData';
+import { getFollowers } from '../data/mockData';
 
 const FollowList = () => {
   const { username, type } = useParams(); // type is 'following' or 'followers'
