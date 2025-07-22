@@ -19,11 +19,18 @@ export const useApp = () => {
   return context;
 };
 
+const deletePost = (id) => {
+  setTweets((prev) => prev.filter((tweet) => tweet.id !== id));
+};
+
+
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(currentUser);
   const [following, setFollowing] = useState(followingData);
   const [users, setUsers] = useState(mockUsers);
   const [tweets, setTweets] = useState(mockTweets);
+
+  
 
   const followUser = (targetUserId) => {
     setFollowing(prev => ({
@@ -132,6 +139,7 @@ export const AppProvider = ({ children }) => {
     likeTweet,
     retweetTweet,
     postTweet,
+    deletePost,
     getUserById: (id) => users.find(u => u.id === id)
   };
 

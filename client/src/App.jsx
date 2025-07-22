@@ -14,6 +14,7 @@ import NotFound from './pages/NotFound';
 import { requestNotificationPermission, subscribeUserToPush } from './utils/pushUtils';
 
 const App = () => {
+  
   useEffect(() => {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
       navigator.serviceWorker
@@ -28,6 +29,8 @@ const App = () => {
         });
     }
   }, []);
+
+  
 
   return (
     <AppProvider>
