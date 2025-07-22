@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Sparkles } from 'lucide-react';
 import TweetComposer from '../components/TweetComposer';
 import Tweet from '../components/Tweet';
 import { useApp } from '../context/AppContext';
 
+
+
 const Home = () => {
   const { tweets } = useApp();
+
 
   return (
     <div className="min-h-screen">

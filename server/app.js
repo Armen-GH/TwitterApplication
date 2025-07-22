@@ -46,5 +46,10 @@ app.get('/', (req, res) => {
   res.send('🚀 API is running!');
 });
 
+app.get('/api/test', (req, res) => {
+  res.json({ message: '🎉 Connection to backend is working!' });
+});
+
+
 export default app;
 export { pgPool };
