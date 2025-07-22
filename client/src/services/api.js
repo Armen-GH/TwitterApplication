@@ -39,3 +39,20 @@ export const loginUser = async ({ email, password }) => {
 
   return data; // contains token + user info
 };
+
+
+//user management functions
+
+
+//Profile
+export const getUserTweets = async (userId, token) => {
+  const res = await fetch(`http://localhost:3000/api/users/${userId}/tweets`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) throw new Error("Failed to fetch tweets");
+  return res.json();
+};
+
+

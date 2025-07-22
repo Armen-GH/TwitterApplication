@@ -24,6 +24,7 @@ const Login = () => {
         console.log("Token:", data.token);
         // Optionally store token in localStorage:
         localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
         // Redirect or load app data
       } else {
         const data = await signupUser({ username, email, password });
@@ -74,7 +75,7 @@ const Login = () => {
           {!isLogin && (
             <input
               type="text"
-              placeholder="Username"
+              placeholder="name"
               onChange={(e) => setUsername(e.target.value)}
               className="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
