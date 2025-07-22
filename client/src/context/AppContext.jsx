@@ -100,26 +100,23 @@ export const AppProvider = ({ children }) => {
   };
 
   const postTweet = (tweetData) => {
-    const isVideo = tweetData.media?.type?.startsWith('video');
-
     const newTweet = {
       id: Date.now(),
-      userId: user.id || 'me',
-      content: tweetData.content,
-      image: !isVideo ? tweetData.mediaPreview : null,
-      video: isVideo ? tweetData.mediaPreview : null,
-      location: tweetData.location || '',
-      scheduleTime: tweetData.scheduleTime || '',
+      userId: currentUser.id,
       timestamp: new Date().toISOString(),
-      replies: 0,
-      retweets: 0,
+      content: tweetData.content,
       likes: 0,
+      retweets: 0,
       comments: [],
+      image: tweetData.media?.type?.startsWith('image') ? tweetData.mediaPreview : null,
+      video: tweetData.media?.type?.startsWith('video') ? tweetData.mediaPreview : null,
+      location: tweetData.location || null,
+      scheduleTime: tweetData.scheduleTime || null,
+      poll: tweetData.poll || null, 
     };
 
-    setTweets((prevTweets) => [newTweet, ...prevTweets]);
+    setTweets((prev) => [newTweet, ...prev]);
   };
-
 
 
   const value = {

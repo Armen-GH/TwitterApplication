@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import {
   Image,
   Smile,
-  Calendar,
-  MapPin,
   BarChartHorizontal,
 } from 'lucide-react';
+import Picker from '@emoji-mart/react';
+import data from '@emoji-mart/data';
+
 import { useApp } from '../context/AppContext';
 
 const TweetComposer = () => {
   const [content, setContent] = useState('');
   const [media, setMedia] = useState(null);
   const [mediaPreview, setMediaPreview] = useState('');
-  const [scheduleTime, setScheduleTime] = useState('');
-  const [location, setLocation] = useState('');
   const [showPoll, setShowPoll] = useState(false);
   const [pollOptions, setPollOptions] = useState(['', '']);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   const { user, postTweet } = useApp();
 
@@ -25,15 +25,6 @@ const TweetComposer = () => {
       setMedia(file);
       setMediaPreview(URL.createObjectURL(file));
     }
-  };
-
-  const handleLocation = () => {
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setLocation(`${pos.coords.latitude},${pos.coords.longitude}`);
-      },
-      () => alert('Location access denied.')
-    );
   };
 
   const handlePollChange = (index, value) => {
@@ -48,6 +39,11 @@ const TweetComposer = () => {
     }
   };
 
+  const handleEmojiSelect = (emoji) => {
+    setContent((prev) => prev + emoji.native);
+    setShowEmojiPicker(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!content.trim()) return;
@@ -56,16 +52,12 @@ const TweetComposer = () => {
       content,
       media,
       mediaPreview,
-      location,
-      scheduleTime,
-      poll: showPoll ? pollOptions.filter((opt) => opt.trim()) : null,
+      poll: pollOptions.filter((opt) => opt.trim() !== ''),
     });
 
     setContent('');
     setMedia(null);
     setMediaPreview('');
-    setLocation('');
-    setScheduleTime('');
     setShowPoll(false);
     setPollOptions(['', '']);
   };
@@ -73,7 +65,7 @@ const TweetComposer = () => {
   const isDisabled = !content.trim() || content.length > 280;
 
   return (
-    <div className="border-b border-gray-800 p-4">
+    <div className="border-b border-gray-800 p-4 relative">
       <form onSubmit={handleSubmit}>
         <div className="flex space-x-3">
           <img
@@ -135,18 +127,9 @@ const TweetComposer = () => {
               </div>
             )}
 
-            {scheduleTime && (
-              <p className="text-sm text-blue-400 mt-1">
-                Scheduled for: {new Date(scheduleTime).toLocaleString()}
-              </p>
-            )}
-
-            {location && (
-              <p className="text-sm text-green-400 mt-1">📍 {location}</p>
-            )}
-
             <div className="flex items-center justify-between mt-4">
               <div className="flex items-center space-x-4">
+                {/* Upload Media */}
                 <label className="text-blue-400 hover:bg-blue-400/10 p-2 rounded-full transition-colors cursor-pointer">
                   <Image size={20} />
                   <input
@@ -157,31 +140,29 @@ const TweetComposer = () => {
                   />
                 </label>
 
-                <button
-                  type="button"
-                  className="text-blue-400 hover:bg-blue-400/10 p-2 rounded-full transition-colors"
-                  title="Emojis coming soon"
-                >
-                  <Smile size={20} />
-                </button>
+                {/* Emoji Picker */}
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setShowEmojiPicker((prev) => !prev)}
+                    className="text-blue-400 hover:bg-blue-400/10 p-2 rounded-full transition-colors"
+                    title="Add emoji"
+                  >
+                    <Smile size={20} />
+                  </button>
+                  {showEmojiPicker && (
+                    <div className="absolute z-50">
+                      <Picker
+                        data={data}
+                        onEmojiSelect={handleEmojiSelect}
+                        theme="dark"
+                      />
 
-                <label className="text-blue-400 hover:bg-blue-400/10 p-2 rounded-full transition-colors cursor-pointer">
-                  <Calendar size={20} />
-                  <input
-                    type="datetime-local"
-                    className="hidden"
-                    onChange={(e) => setScheduleTime(e.target.value)}
-                  />
-                </label>
+                    </div>
+                  )}
+                </div>
 
-                <button
-                  type="button"
-                  onClick={handleLocation}
-                  className="text-blue-400 hover:bg-blue-400/10 p-2 rounded-full transition-colors"
-                >
-                  <MapPin size={20} />
-                </button>
-
+                {/* Poll Button */}
                 <button
                   type="button"
                   onClick={() => setShowPoll(!showPoll)}
