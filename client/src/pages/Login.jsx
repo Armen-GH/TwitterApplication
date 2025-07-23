@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-import { Twitter } from "lucide-react"; // or use any Twitter icon SVG
-import { signupUser, loginUser } from '../services/api';
-=======
->>>>>>> client
 
+import { Twitter } from "lucide-react"; 
+import { signupUser, loginUser } from '../services/api';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
