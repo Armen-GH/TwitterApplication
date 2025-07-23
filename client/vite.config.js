@@ -7,29 +7,35 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'robots.txt', 'apple-touch-icon.png'],
+      includeAssets: [
+        'favicon.svg',
+        'robots.txt',
+        'apple-touch-icon.png',
+        'twitter.png'
+      ],
       manifest: {
-        name: 'Twitter Clone',
-        short_name: 'TwClone',
-        description: 'A Twitter clone with PWA support',
+        name: 'Twitter',
+        short_name: 'Tw',
+        description: 'A Twitter with PWA support',
         theme_color: '#232227',
         background_color: '#232227',
         display: 'standalone',
         start_url: '/',
         icons: [
           {
-            src: 'pwa-192x192.png',
+            src: 'twitter-192x192.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'twitter-512x512.png',
             sizes: '512x512',
             type: 'image/png'
           }
         ]
       },
       workbox: {
+        navigateFallback: '/offline.html',
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,

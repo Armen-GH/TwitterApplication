@@ -22,7 +22,7 @@ const App = () => {
         .then(async (registration) => {
           console.log('Service Worker registered:', registration);
           await requestNotificationPermission();
-          await subscribeUserToPush(registration);
+          // await subscribeUserToPush(registration);
         })
         .catch((err) => {
           console.error('Service Worker registration failed:', err);

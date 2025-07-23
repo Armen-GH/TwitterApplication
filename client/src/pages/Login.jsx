@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import { Twitter } from "lucide-react"; 
 import { signupUser, loginUser } from '../services/api';
 
 const Login = () => {
+  const navigate = useNavigate(); 
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -20,30 +20,31 @@ const Login = () => {
     try {
       if (isLogin) {
         const data = await loginUser({ email, password });
-        setStatus("✅ Login successful!");
+        setStatus("Login successful!");
         console.log("Token:", data.token);
-        // Optionally store token in localStorage:
+
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-        // Redirect or load app data
+
+        // ⏩ Redirect to home page
+        navigate('/');
       } else {
         const data = await signupUser({ username, email, password });
-        setStatus("✅ Account created!");
+        setStatus("Account created!");
         console.log("Signed up:", data);
-        // Optional: switch to login
-        // setIsLogin(true);
+
+        // Optional: auto-login after sign up
+        setIsLogin(true);
       }
     } catch (err) {
-      console.error("Signup error:", err);
-      setError("Failed to sign up");
+      console.error("Auth error:", err);
+      setError("Invalid credentials or server error.");
     }
   };
-  
 
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-gray-900 p-6 rounded-xl shadow-md flex flex-col gap-6">
-        {/* Twitter Logo */}
         <div className="flex justify-center">
           <Twitter size={36} className="text-blue-500" />
         </div>
@@ -66,16 +67,18 @@ const Login = () => {
           >
             Sign Up
           </button>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          {status && <p className="text-green-500 text-sm">{status}</p>}
         </div>
+
+        {/* Messages */}
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+        {status && <p className="text-green-500 text-sm text-center">{status}</p>}
 
         {/* Form */}
         <form className="space-y-4" onSubmit={handleSubmit}>
           {!isLogin && (
             <input
               type="text"
-              placeholder="name"
+              placeholder="Name"
               onChange={(e) => setUsername(e.target.value)}
               className="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -83,7 +86,7 @@ const Login = () => {
           <input
             type="email"
             placeholder="Email"
-             onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
@@ -100,7 +103,6 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Platform Intro */}
         <div className="text-center text-sm text-gray-400 pt-4 border-t border-gray-700">
           <p>Discover what's happening in the world right now.</p>
           <Link
