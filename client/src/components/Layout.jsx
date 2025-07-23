@@ -97,67 +97,6 @@ const Layout = ({ children }) => {
               {children}
             </div>
 
-            {/* Right Sidebar */}
-            {/* <div className="w-80 p-4">
-              <div className="bg-gray-900 rounded-2xl p-4 mb-4">
-                <h3 className="text-xl font-bold mb-3">What's happening</h3>
-                <div className="space-y-3">
-                  <div className="cursor-pointer hover:bg-gray-800 p-2 rounded">
-                    <p className="text-gray-500 text-sm">Trending in Technology</p>
-                    <p className="font-bold">React 19</p>
-                    <p className="text-gray-500 text-sm">25.4K Tweets</p>
-                  </div>
-                  <div className="cursor-pointer hover:bg-gray-800 p-2 rounded">
-                    <p className="text-gray-500 text-sm">Trending in Programming</p>
-                    <p className="font-bold">TypeScript</p>
-                    <p className="text-gray-500 text-sm">18.2K Tweets</p>
-                  </div>
-                  <div className="cursor-pointer hover:bg-gray-800 p-2 rounded">
-                    <p className="text-gray-500 text-sm">Trending</p>
-                    <p className="font-bold">OpenAI</p>
-                    <p className="text-gray-500 text-sm">45.7K Tweets</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gray-900 rounded-2xl p-4">
-                <h3 className="text-xl font-bold mb-3">Who to follow</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <img
-                        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face"
-                        alt="Suggested user"
-                        className="w-10 h-10 rounded-full"
-                      />
-                      <div>
-                        <p className="font-bold">React</p>
-                        <p className="text-gray-500 text-sm">@reactjs</p>
-                      </div>
-                    </div>
-                    <button className="bg-white text-black px-4 py-1 rounded-full font-bold text-sm hover:bg-gray-200 transition-colors">
-                      Follow
-                    </button>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <img
-                        src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=40&h=40&fit=crop&crop=face"
-                        alt="Suggested user"
-                        className="w-10 h-10 rounded-full"
-                      />
-                      <div>
-                        <p className="font-bold">Vercel</p>
-                        <p className="text-gray-500 text-sm">@vercel</p>
-                      </div>
-                    </div>
-                    <button className="bg-white text-black px-4 py-1 rounded-full font-bold text-sm hover:bg-gray-200 transition-colors">
-                      Follow
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

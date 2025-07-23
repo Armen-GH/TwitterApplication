@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import { Twitter } from "lucide-react"; // or use any Twitter icon SVG
 import { signupUser, loginUser } from '../services/api';
+=======
+>>>>>>> client
 
 
 const Login = () => {

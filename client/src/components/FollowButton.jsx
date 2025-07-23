@@ -5,7 +5,7 @@ const FollowButton = ({ userId, className = "" }) => {
   const { followUser, unfollowUser, isUserFollowing, user: currentUser } = useApp();
   
   if (userId === currentUser.id) {
-    return null; // Don't show follow button for own profile
+    return null; // don't show follow button for own profile
   }
   
   const isFollowing = isUserFollowing(userId);

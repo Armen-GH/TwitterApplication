@@ -1,5 +1,4 @@
 import React from "react";
-import { Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const About = () => {
@@ -16,7 +15,7 @@ const About = () => {
       {/* Description */}
       <div className="text-gray-400 text-center max-w-2xl space-y-4 text-base">
         <p>
-          Welcome to our Twitter/X clone — a social media platform where users share short, real-time posts called tweets.
+          Welcome to our Twitter/X clone; a social media platform where users share short, real-time posts called tweets.
         </p>
         <p>
           Designed as part of a full-stack development curriculum, this app merges modern tech with real-world functionality.

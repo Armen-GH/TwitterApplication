@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Camera, X } from 'lucide-react';
+import { ArrowLeft, Camera } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 const Settings = () => {
