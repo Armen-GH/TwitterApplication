@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Camera } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { updatePassword } from '../services/api';
+const token = localStorage.getItem('token');
+
 
 const Settings = () => {
   const { user, updateProfile } = useApp();
@@ -32,31 +35,52 @@ const Settings = () => {
   };
 
   const handlePasswordSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (passwordData.newPassword !== passwordData.confirmPassword) {
-      alert('New passwords do not match');
-      return;
-    }
-    
-    if (passwordData.newPassword.length < 8) {
-      alert('Password must be at least 8 characters long');
-      return;
-    }
-    
+  e.preventDefault();
+
+  if (passwordData.newPassword !== passwordData.confirmPassword) {
+    alert('New passwords do not match');
+    return;
+  }
+
+  if (passwordData.newPassword.length < 8) {
+    alert('Password must be at least 8 characters long');
+    return;
+  }
+
+  try {
     setIsSaving(true);
+
+    // Replace with however you're storing the token
+     const token = localStorage.getItem('token');
+    if (!token) {
+      alert('User not authenticated');
+      return;
+    }
+
+    await updatePassword(user.id, token, passwordData.newPassword);
+
+    console.log('Password Update Payload:', {
+      userId: user.id,
+      token,
+      newPassword: passwordData.newPassword
+    });
     
-    // Simulate API call
-    setTimeout(() => {
-      setPasswordData({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: '',
-      });
-      setIsSaving(false);
-      alert('Password updated successfully!');
-    }, 1000);
-  };
+
+    setPasswordData({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    });
+
+    alert('Password updated successfully!');
+  } catch (err) {
+    console.error(err);
+    alert('Failed to update password');
+  } finally {
+    setIsSaving(false);
+  }
+};
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

@@ -55,4 +55,17 @@ export const getUserTweets = async (userId, token) => {
   return res.json();
 };
 
+//Account Management
+export const updatePassword = async (userId, token, newPassword) => {
+  const res = await fetch(`http://localhost:3000/api/users/${userId}/password`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ newPassword }),
+  });
+  if (!res.ok) throw new Error("Failed to update password");
+  return res.json();
+};
 
