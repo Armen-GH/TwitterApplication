@@ -11,7 +11,8 @@ export default defineConfig({
         'favicon.svg',
         'robots.txt',
         'apple-touch-icon.png',
-        'twitter.png'
+        'twitter.png',
+        'offline.html'
       ],
       manifest: {
         name: 'Twitter',
@@ -49,7 +50,7 @@ export default defineConfig({
             }
           },
           {
-            urlPattern: /^https:\/\/your-api-domain\.com\/.*/i,
+            urlPattern: /^http:\/\/localhost:5173\/.*/i,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',
