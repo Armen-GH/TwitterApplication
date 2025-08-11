@@ -2,9 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Camera } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { updatePassword } from '../services/api';
-const token = localStorage.getItem('token');
-
+import { updatePassword, updateProfileAPI } from '../services/api';
 
 const Settings = () => {
   const { user, updateProfile } = useApp();
@@ -25,68 +23,71 @@ const Settings = () => {
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
     setIsSaving(true);
-    
-    // Simulate API call
-    setTimeout(() => {
+
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('User not authenticated');
+        setIsSaving(false);
+        return;
+      }
+
+      await updateProfileAPI(user.id, token, formData);
+
       updateProfile(formData);
-      setIsSaving(false);
       alert('Profile updated successfully!');
-    }, 1000);
+    } catch (error) {
+      console.error(error);
+      alert('Failed to update profile');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handlePasswordSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (passwordData.newPassword !== passwordData.confirmPassword) {
-    alert('New passwords do not match');
-    return;
-  }
-
-  if (passwordData.newPassword.length < 8) {
-    alert('Password must be at least 8 characters long');
-    return;
-  }
-
-  try {
-    setIsSaving(true);
-
-    // Replace with however you're storing the token
-     const token = localStorage.getItem('token');
-    if (!token) {
-      alert('User not authenticated');
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      alert('New passwords do not match');
       return;
     }
 
-    await updatePassword(user.id, token, passwordData.newPassword);
+    if (passwordData.newPassword.length < 8) {
+      alert('Password must be at least 8 characters long');
+      return;
+    }
 
-    console.log('Password Update Payload:', {
-      userId: user.id,
-      token,
-      newPassword: passwordData.newPassword
-    });
-    
+    try {
+      setIsSaving(true);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('User not authenticated');
+        setIsSaving(false);
+        return;
+      }
 
-    setPasswordData({
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: '',
-    });
+      await updatePassword(user.id, token, passwordData.newPassword);
 
-    alert('Password updated successfully!');
-  } catch (err) {
-    console.error(err);
-    alert('Failed to update password');
-  } finally {
-    setIsSaving(false);
-  }
-};
+      setPasswordData({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+      });
 
+      alert('Password updated successfully!');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to update password');
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -94,7 +95,7 @@ const Settings = () => {
     const { name, value } = e.target;
     setPasswordData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -105,7 +106,7 @@ const Settings = () => {
     { id: 'notifications', name: 'Notifications' },
   ];
 
-  return (
+return (
     <div className="min-h-screen">
       {/* Header */}
       <div className="sticky top-0 bg-black/80 backdrop-blur-md border-b border-gray-800 p-4 flex items-center space-x-4">
@@ -140,7 +141,7 @@ const Settings = () => {
           {activeTab === 'profile' && (
             <div className="p-8 max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold mb-8">Edit Profile</h2>
-              
+
               <form onSubmit={handleProfileSubmit} className="space-y-8">
                 {/* Profile Picture */}
                 <div className="flex items-start space-x-6 p-8 bg-gray-900/30 rounded-2xl min-h-[140px]">
@@ -282,7 +283,7 @@ const Settings = () => {
           {activeTab === 'password' && (
             <div className="p-8 max-w-2xl mx-auto">
               <h2 className="text-3xl font-bold mb-8">Change Password</h2>
-              
+
               <form onSubmit={handlePasswordSubmit} className="space-y-8">
                 <div className="p-6 bg-gray-900/30 rounded-2xl">
                   <label htmlFor="currentPassword" className="block text-lg font-semibold text-gray-200 mb-3">
